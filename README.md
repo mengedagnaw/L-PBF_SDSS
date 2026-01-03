@@ -81,7 +81,6 @@ Example:
 ## Common troubleshooting
 
 ### Phase name mismatch (Ferrite/Austenite not found)
-Some EBSD exports name phases differently (e.g., `Ferryt`, `gamma`).  
 The scripts include **robust phase selection** using name matching, but if yours are unusual:
 - inspect `ebsd.mineralList`
 - update the phase labels in the script if needed
