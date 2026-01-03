@@ -25,3 +25,82 @@ L-PBF_SDSS/
 │
 └─ README.md
 
+
+> Note: Raw EBSD files (`.ang`) are not included here by default (they are often large).  
+> If you add them, place them inside each condition folder or a dedicated `data/` directory.
+
+---
+
+## Sample conditions
+
+- **AS**: As-printed / as-built
+- **SR400**: Stress-relieved at 400 °C
+- **SR450**: Stress-relieved at 450 °C
+- **SR500**: Stress-relieved at 500 °C
+- **SR550**: Stress-relieved at 550 °C
+- **SA1100**: Solution annealed at 1100 °C
+
+---
+
+## Requirements
+
+- **MATLAB** (R20xxa or newer recommended)
+- **MTEX** (v6.x recommended)
+- EBSD input format: **`.ang`** (hex grid supported)
+
+---
+
+## What the scripts generate
+
+For each condition:
+- **Ferrite (α-Fe) ODF**: φ₂ = 0°, 45°, 65°
+- **Austenite (γ-Fe) ODF**: φ₂ = 0°, 45°, 65°
+- Exported as high-resolution PNG (e.g., 600 dpi), suitable for manuscripts.
+
+All scripts use:
+- `calcDensity(..., 'halfwidth', 10° , 'resolution', 10°)`
+- plot window: **0–90° × 0–90°** in (φ₁, Φ)
+- colorbar labeled **MRD** (multiples of random distribution)
+
+---
+
+## How to run (MATLAB Online or Desktop)
+
+1. Put the correct `.ang` file for the condition in the same folder as the script  
+   (default expected name is `0.ang`).
+2. Open the script for the condition and run it.
+
+Example:
+- Run: `MTEX MATLAB scripts/AS_hex.m`
+- Output:
+  - `figures/AS/AS_Ferrite_ODF_phi2_0_45_65.png`
+  - `figures/AS/AS_Austenite_ODF_phi2_0_45_65.png`
+
+---
+
+## Common troubleshooting
+
+### Phase name mismatch (Ferrite/Austenite not found)
+Some EBSD exports name phases differently (e.g., `Ferryt`, `gamma`).  
+The scripts include **robust phase selection** using name matching, but if yours are unusual:
+- inspect `ebsd.mineralList`
+- update the phase labels in the script if needed
+
+### Orientation reference frame (EDAX/ANG conventions)
+If your maps appear flipped/rotated, adjust:
+- `convertEuler2SpatialReferenceFrame` setting (`setting 1` vs `setting 2`)
+
+---
+
+## Citation / attribution
+
+If you use these scripts or figures in a publication, please cite:
+- **MTEX** (texture analysis toolbox) and
+- this repository (link in your manuscript or supplemental information)
+
+---
+
+## License
+
+Choose a license that matches your sharing intent (MIT, BSD-3, or CC-BY for figures).
+If you want, I can generate a `LICENSE` file consistent with your publication + reuse goals.
